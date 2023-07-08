@@ -13,3 +13,4 @@ void ShowMenu();
 void InCash(User arr);  // 입금
 void OutCash(User arr);  // 출금
 void ShowAccount(User ptr);
+void LogOut();
