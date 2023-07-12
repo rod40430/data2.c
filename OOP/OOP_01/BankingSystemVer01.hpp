@@ -1,16 +1,15 @@
 // OOP 단게별 프로젝트 01단계
-#define MAX 10
+const int MAX = 10;
 
-typedef struct user
+typedef struct
 {
   int userid;
   int ucash;
-  char uname[20];
+  char uname[MAX];
 }  User;
 
-void CreateAccount(User arr);  // 계좌개설
-void ShowMenu();
-void InCash(User arr);  // 입금
-void OutCash(User arr);  // 출금
-void ShowAccount(User ptr);
-void LogOut();
+void ShowMenu(void);  //메뉴출력
+void CreateAccount(User *user, int count);  // 계좌개설
+void InCash(User *user, int count);  // 입금
+void OutCash(User *user, int count);  // 출금
+void ShowAccount(User *user, int count);  //잔액 조회
