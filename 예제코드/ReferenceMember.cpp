@@ -20,7 +20,7 @@ class BBB
 {
 private:
   AAA &ref;
-  const int &num;
+  const int num;
 
 public:
   BBB(AAA &r, const int &n)
