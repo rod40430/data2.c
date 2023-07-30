@@ -130,7 +130,7 @@ void MakeAccount(void)
   cin >> balance;
   cout<<endl;
 
-  accArr[accNum] = new Account(id, balance, name);
+  accArr[accNum++] = new Account(id, balance, name);
 }
 
 void DepositMoney(void)
