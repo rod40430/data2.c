@@ -5,7 +5,7 @@ using namespace std;
 
 namespace RISK_LEVEL
 {
-    enum {RISK_A = 0, RISK_B, RISK_C};
+  enum {RISK_A = 30, RISK_B = 20, RISK_C = 10};
 }
 
 class Employee
@@ -22,12 +22,8 @@ public:
   {
     cout<<"name : "<<name<<endl;
   }
-  virtual int GetPay() const
-  {
-    return 0;
-  }
-  virtual void ShowSalaryInfo() const
-  {}
+  virtual int GetPay() const = 0;  // 순수 가상함수
+  virtual void ShowSalaryInfo() const = 0;  // 순수 가상함수
 };
 
 class PermanentWorker : public Employee
@@ -99,33 +95,26 @@ public:
 class ForeignSalesWorker : public SalesWorker
 {
 private:
-    int risk_type;
+  int riskType;  // 위험추가수당
 public:
-    ForeignSalesWorker(char * name, int money, double ratio, int risk)
-        : SalesWorker(name, money, ratio), risk_type(risk)
-    {}
-    int GetPay() const
-    {
-        if (risk_type == RISK_LEVEL::RISK_A)
-        return (int) (SalesWorker::GetPay() * 1.3);
-        
-        else if (risk_type == RISK_LEVEL::RISK_B)
-        return (int) (SalesWorker::GetPay() * 1.2);
-        
-        else if (risk_type == RISK_LEVEL::RISK_C)
-        return (int) (SalesWorker::GetPay() * 1.1);
-        
-        else
-        return -1;
-    }
-    
-    void ShowSalaryInfo() const
-    {
-        ShowYourName();
-        cout<<"salary : "<<SalesWorker::GetPay()<<endl;
-        cout<<"risk pay : "<<-(SalesWorker::GetPay() - GetPay())<<endl;
-        cout<<"sum : "<<GetPay()<<endl<<endl;
-    }
+  ForeignSalesWorker(char * name, int money, double ratio,int risk)
+    : SalesWorker(name, money, ratio), riskType(risk)
+  {}
+  int GetRiskPay() const
+  {
+    return (int) (SalesWorker::GetPay() * (riskType/100.0));
+  }
+  int GetPay() const
+  {
+    return SalesWorker::GetPay() + GetRiskPay();
+  }
+  void ShowSalaryInfo() const
+  {
+    ShowYourName();
+    cout<<"salary : "<<SalesWorker::GetPay()<<endl;
+    cout<<"risk pay : "<<GetRiskPay()<<endl;
+    cout<<"sum : "<<GetPay()<<endl<<endl;
+  }
 };
 
 class EmployeeHandler
